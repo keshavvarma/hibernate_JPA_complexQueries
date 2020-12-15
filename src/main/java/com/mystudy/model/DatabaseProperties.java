@@ -16,7 +16,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @Configuration
 @PropertySource(value= {"classpath:application.properties"})
 public class DatabaseProperties {
-	
 	@Value("${jdbc.driver}")
 	private String driverName;
 	@Value("${jdbc.url}")
