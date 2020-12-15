@@ -8,10 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.mystudy.model.Team;
 
 /**
- * @author Keshav
+ * @author om
  *
  */
-
 public interface TeamRepository extends JpaRepository<Team, Long>{
 
 }

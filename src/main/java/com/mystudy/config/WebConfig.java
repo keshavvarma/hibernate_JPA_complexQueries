@@ -19,7 +19,7 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.mystudy.*", "com.mystudy.OneToManyMapping.service.*"} )
+@ComponentScan(basePackages = {"com.mystudy.*"} )
 public class WebConfig implements WebMvcConfigurer {
 
 	@Bean

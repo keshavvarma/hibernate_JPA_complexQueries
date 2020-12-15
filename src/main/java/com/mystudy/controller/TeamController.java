@@ -3,36 +3,46 @@
  */
 package com.mystudy.controller;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.mystudy.model.Team;
-import com.mystudy.service.TeamService;
+import com.mystudy.model.Student;
+import com.mystudy.service.StudentService;
 
 /**
- * @author Keshav
+ * @author om
  *
  */
-
-@Controller
-@RequestMapping("/team")
+@RestController
+@RequestMapping("/teams")
 public class TeamController {
-	@Autowired
-	TeamService teamService;
 
+	@Autowired
+	StudentService studentService;
+	
+	@GetMapping
 	@ResponseBody
-	@PostMapping(path = "/new.do")
-	public Map<Object, Object> saveTest(@RequestBody Team team) {
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		Team team2 = teamService.saveTeam(team);
-		map.put("data", team2);
-		return map;
+	public String test(){
+		return "Working";
 	}
+	
+	@GetMapping("/getAllByTeamId/{teamId}")
+	public Map<String, Object> findAllByTeamId(@PathVariable Long teamId){
+		Map<String, Object> resp = new LinkedHashMap<String, Object>();
+		List<Student> students = studentService.findAllByTeamId(teamId);
+		resp.put("count", students.size());
+		resp.put("data", students);
+		return resp;
+	}
+	
+	
+	
 }

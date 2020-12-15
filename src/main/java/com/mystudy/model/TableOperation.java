@@ -10,8 +10,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
-import org.hibernate.annotations.Where;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -23,21 +21,17 @@ import com.mystudy.formatter.CustomLocalDateTimeSerializer;
  */
 @MappedSuperclass
 public class TableOperation {
-	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-	//@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-	//@JsonSerialize(using = CustomLocalDateTimeSerializer.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(name="created_on", nullable=true)
-	private LocalDateTime createdOn;
+	@Column(name="created_date", nullable=true)
+	private LocalDateTime createdDate;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(name="updated_on", nullable=true)
+	@Column(name="updated_date", nullable=true)
 	@JsonSerialize(using = CustomLocalDateTimeSerializer.class)
-	private LocalDateTime updatedOn;
-	@Column(name="deleted_on", nullable=true)
+	private LocalDateTime updatedDate;
+	@Column(name="deleted_date", nullable=true)
 	@JsonSerialize(using = CustomLocalDateTimeSerializer.class)
-	private LocalDateTime deletedOn;
+	private LocalDateTime deletedDate;
 	@Column(name="created_by", nullable=true)
 	private Long createdBy;
 	@Column(name="updated_by", nullable=true)
@@ -47,47 +41,58 @@ public class TableOperation {
 	
 	@PrePersist
 	void onPersist() {
-		this.createdOn = LocalDateTime.now();
+		this.createdDate = LocalDateTime.now();
 	}
 	
 	@PreUpdate
 	void onUpdate() {
-		this.updatedOn = LocalDateTime.now();
+		this.updatedDate = LocalDateTime.now();
 	}
-	
-	public LocalDateTime getCreatedOn() {
-		return createdOn;
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
 	}
-	public void setCreatedOn(LocalDateTime createdOn) {
-		this.createdOn = createdOn;
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
 	}
-	public LocalDateTime getUpdatedOn() {
-		return updatedOn;
+
+	public LocalDateTime getUpdatedDate() {
+		return updatedDate;
 	}
-	public void setUpdatedOn(LocalDateTime updatedOn) {
-		this.updatedOn = updatedOn;
+
+	public void setUpdatedDate(LocalDateTime updatedDate) {
+		this.updatedDate = updatedDate;
 	}
-	public LocalDateTime getDeletedOn() {
-		return deletedOn;
+
+	public LocalDateTime getDeletedDate() {
+		return deletedDate;
 	}
-	public void setDeletedOn(LocalDateTime deletedOn) {
-		this.deletedOn = deletedOn;
+
+	public void setDeletedDate(LocalDateTime deletedDate) {
+		this.deletedDate = deletedDate;
 	}
+
 	public Long getCreatedBy() {
 		return createdBy;
 	}
+
 	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
 	}
+
 	public Long getUpdatedBy() {
 		return updatedBy;
 	}
+
 	public void setUpdatedBy(Long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
+
 	public Long getDeletedBy() {
 		return deletedBy;
 	}
+
 	public void setDeletedBy(Long deletedBy) {
 		this.deletedBy = deletedBy;
 	}
